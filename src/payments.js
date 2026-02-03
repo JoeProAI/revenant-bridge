@@ -1,0 +1,3 @@
+// payments.js: $RUN onchain transfers
+// To wallet 8QpjoTEmvqB816FeJUNwm6S6Ea5dyhTSKXWDjLM3aCMq
+// Code here...
