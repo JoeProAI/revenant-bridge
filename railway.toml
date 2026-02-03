@@ -1,0 +1,11 @@
+[build]
+builder = "NIXPACKS"
+nixPkgs = ["nodejs-22"]
+buildCommand = "npm install"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/test-flow"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

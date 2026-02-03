@@ -1,4 +1,7 @@
-// server.js: Express server for /test-flow
+// server.js: Express server with UI
+app.use(express.static("ui"));
+app.get("/", (req, res) => res.sendFile("index.html", { root: "ui" }));
+// Original content...
 const express = require(\"express\");
 const { salvageToArweave } = require(\"./src/salvage\");
 const { reviveFromArweave } = require(\"./src/revival\");
