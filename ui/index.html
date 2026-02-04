@@ -1,47 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revenant Bridge</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="hero">
-        <h1 class="bold-title">Revenant Bridge</h1>
-        <p class="subtitle">Salvage, Revive, Transact</p>
-    </header>
-
-    <main class="asymmetric-grid">
-        <section class="salvage">
-            <h2>Salvage to Arweave</h2>
-            <p>Securely backup your workspace files to the permanent Arweave blockchain.</p>
-            <input type="file" id="files" multiple>
-            <button onclick="uploadToArweave()">Upload</button>
-        </section>
-
-        <section class="revival">
-            <h2>Revival Spawn</h2>
-            <p>Spawn sub-agents for revival and continuation.</p>
-            <input type="text" placeholder="Sub-agent config">
-            <button onclick="spawnAgent()">Spawn</button>
-        </section>
-
-        <section class="payments">
-            <h2>Sol/USD Payments</h2>
-            <p>Handle seamless cryptocurrency and fiat transactions.</p>
-            <select id="currency">
-                <option value="SOL">Solana</option>
-                <option value="USD">USD</option>
-            </select>
-            <button onclick="processPayment()">Pay</button>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Revenant Bridge</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Revenant Bridge&lt;/title&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;header&gt;
+            &lt;h1&gt;Revenant Bridge&lt;/h1&gt;
+        &lt;/header&gt;
+        &lt;main class=&quot;grid&quot;&gt;
+            &lt;section class=&quot;left&quot;&gt;
+                &lt;h2&gt;Features&lt;/h2&gt;
+                &lt;p&gt;Bold maximalist production UI for bridging realities.&lt;/p&gt;
+            &lt;/section&gt;
+            &lt;section class=&quot;right&quot;&gt;
+                &lt;h2&gt;Get Started&lt;/h2&gt;
+                &lt;button id=&quot;launch&quot;&gt;Launch Bridge&lt;/button&gt;
+            &lt;/section&gt;
+        &lt;/main&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
