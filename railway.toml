@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-nixPkgs = ["nodejs-22"]
+nixPkgs = ["nodejs-22", "python3"]
 buildCommand = "npm install"
 
 [deploy]
