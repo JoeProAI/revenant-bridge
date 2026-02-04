@@ -1,7 +1,7 @@
-FROM node:22-alpine
+FROM node:22
 
-# Install Python and build tools for native deps (e.g., gyp for Solana if any)
-RUN apk add --no-cache python3 make g++ python3-dev
+# Install Python and build tools for native deps (if any)
+RUN apt-get update && apt-get install -y python3 python3-pip make g++ build-essential
 
 WORKDIR /app
 
