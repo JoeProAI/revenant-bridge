@@ -1,0 +1,111 @@
+/* Bold Maximalist UI */
+
+@import url('https://fonts.googleapis.com/css2?family=Impact:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Impact', sans-serif;
+    background-color: #000;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.hero {
+    text-align: left;
+    padding: 4rem 2rem;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    margin-bottom: 5rem;
+}
+
+.bold-title {
+    font-size: 5rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    letter-spacing: 0.1em;
+}
+
+.subtitle {
+    font-size: 2rem;
+    margin-top: 1rem;
+    opacity: 0.9;
+}
+
+.asymmetric-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 3rem;
+    padding: 0 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section {
+    background: rgba(255,255,255,0.1);
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ffd93d;
+}
+
+input, select, button {
+    display: block;
+    margin: 1rem 0;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-family: inherit;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    width: 100%;
+    max-width: 300px;
+}
+
+button {
+    background: #ff6b6b;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #ff5252;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #111;
+    margin-top: 5rem;
+}
+
+/* High whitespace */
+* {
+    box-sizing: border-box;
+}
+
+/* Asymmetric adjustments */
+.salvage {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+.revival {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.payments {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
