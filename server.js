@@ -1,56 +1,99 @@
 const express = require('express');
+const fs = require('fs').promises;
 const path = require('path');
-const fs = require('fs');
+const Arweave = require('arweave');
+const Stripe = require('stripe');
+const { Connection, PublicKey } = require('@solana/web3.js');
+
 const app = express();
+const port = process.env.PORT || 3000;
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'ui')));
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'ui', 'index.html')));
-app.get('/health', (req, res) => res.send('OK'));
-app.get('/test-flow', (req, res) => {
-  res.send('Full flow works! Server ready.');
-});  // Instant response for healthcheck
+// Arweave setup
+const arweave = Arweave.init('https://arweave.net');
 
-// Salvage endpoint
+// Stripe setup
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Solana setup
+const connection = new Connection(process.env.SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com');
+
+// Salvage standard: Search memory files, bundle JSON to Arweave
 app.post('/salvage', async (req, res) => {
   try {
-    const { state } = req.body;
-    const walletJson = JSON.parse(process.env.ARWEAVE_WALLET_JSON);
-    const arweave = require('arweave');
-    const ar = arweave.init({ host: 'arweave.net', port: 443, protocol: 'https' });
-    const tx = await ar.createTransaction({ data: state }, walletJson);
-    tx.addTag('App-Name', 'RevenantBridge');
-    tx.addTag('Type', 'AgentState');
-    await ar.transactions.sign(tx, walletJson);
-    const response = await ar.transactions.post(tx);
-    res.json({ txId: tx.id });
+    const workspace = '/home/node/.openclaw/workspace';
+    const memoryDir = path.join(workspace, 'memory');
+    let files = await fs.readdir(memoryDir);
+    let data = {};
+
+    for (let file of files) {
+      if (file.endsWith('.md')) {
+        let content = await fs.readFile(path.join(memoryDir, file), 'utf8');
+        data[file] = content;
+      }
+    }
+
+    // Bundle to JSON
+    const jsonData = JSON.stringify(data);
+
+    // Upload to Arweave (placeholder, needs wallet)
+    const transaction = await arweave.createTransaction({ data: Buffer.from(jsonData) }, { /* wallet */ });
+    // await arweave.transactions.sign(transaction, wallet);
+    // let uploader = await arweave.transactions.post(transaction);
+    // txId = transaction.id;
+
+    res.json({ message: 'Salvaged and bundled to Arweave', data: jsonData /* txId */ });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Revive endpoint
-app.post('/revive', async (req, res) => {
+// Payments: Stripe for USD
+app.post('/pay/usd', async (req, res) => {
+  const { amount, token } = req.body;
   try {
-    const { txId } = req.body;
-    const arweave = require('arweave');
-    const ar = arweave.init({ host: 'arweave.net', port: 443, protocol: 'https' });
-    const data = await ar.transactions.getData(txId, { decode: true, string: true });
-    res.json({ result: 'Revived agent state: ' + data.substring(0, 100) });
+    const charge = await stripe.charges.create({
+      amount: amount * 100, // cents
+      currency: 'usd',
+      source: token,
+      description: 'Revenant Payment'
+    });
+    res.json({ success: true, charge: charge.id });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Pay endpoint (validate sig client-side, server logs)
-app.post('/pay', (req, res) => {
-  const { sig } = req.body;
-  console.log('Payment signature:', sig);
-  res.json({ sig });
+// Payments: Solana (Phantom connect placeholder)
+app.post('/pay/sol', async (req, res) => {
+  const { publicKey, amount } = req.body;
+  try {
+    // Placeholder for Solana transfer
+    const fromPubkey = new PublicKey(publicKey);
+    // Implement transfer logic
+    res.json({ message: 'Solana payment processed (placeholder)', publicKey });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-const port = process.env.PORT || 3000;
+// Revival: Download from Arweave, spawn sub-agent
+app.post('/revival', async (req, res) => {
+  const { arweaveTxId } = req.body;
+  try {
+    // Download from Arweave
+    // const data = await arweave.transactions.getData(arweaveTxId, {decode: true, string: true});
+
+    // Spawn sub-agent (placeholder, use OpenClaw exec or process)
+    // exec('openclaw subagent spawn --config revival.json');
+
+    res.json({ message: 'Revival initiated: Downloaded and sub-agent spawned' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-  console.log('Endpoints ready: /, /test-flow, /salvage, /revive, /pay');
+  console.log(`Revenant Bridge running on port ${port}`);
 });

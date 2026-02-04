@@ -1,17 +1,16 @@
 {
   "name": "revenant-bridge",
   "version": "1.0.0",
+  "description": "Bridge for Revenant AI system",
   "main": "server.js",
-  "dependencies": {
-    "express": "^4.18.2",
-    "arweave": "^1.10.18",
-    "@solana/web3.js": "^1.95.3",
-    "@solana/spl-token": "^0.3.7"
-  },
   "scripts": {
     "start": "node server.js"
   },
-  "engines": {
-    "node": "22.x"
+  "dependencies": {
+    "express": "^4.18.2",
+    "arweave": "^1.14.4",
+    "stripe": "^14.5.0",
+    "@solana/web3.js": "^1.87.6",
+    "fs": "0.0.1-security"
   }
 }
