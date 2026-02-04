@@ -5,14 +5,14 @@ const app = express();
 app.use(express.json());
 // app.use(express.static('ui')); // Commented out since inlining UI
 
-const html = `&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-    &lt;title&gt;Revenant Bridge&lt;/title&gt;
-    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
-    &lt;style&gt;
+const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenant Bridge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <style>
         body {
             font-family: 'Inter', sans-serif;
             background: #000;
@@ -103,44 +103,44 @@ const html = `&lt;!DOCTYPE html&gt;
             h1 { font-size: 48px; }
             h2 { font-size: 36px; }
         }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;header&gt;
-        &lt;h1&gt;Revenant Bridge&lt;/h1&gt;
-    &lt;/header&gt;
-    &lt;aside class=&quot;aside&quot;&gt;
-        &lt;h2&gt;Test Flow&lt;/h2&gt;
-        &lt;button onclick=&quot;testFlow()&quot;&gt;Run Test&lt;/button&gt;
-        &lt;div id=&quot;test-result&quot;&gt;&lt;/div&gt;
-    &lt;/aside&gt;
-    &lt;main class=&quot;main&quot;&gt;
-        &lt;section&gt;
-            &lt;h2&gt;Salvage Agent&lt;/h2&gt;
-            &lt;form id=&quot;salvage-form&quot;&gt;
-                &lt;textarea id=&quot;state&quot; placeholder=&quot;Enter agent state JSON...&quot; rows=&quot;6&quot; style=&quot;width: 100%; resize: vertical;&quot;&gt;&lt;/textarea&gt;
-                &lt;button type=&quot;submit&quot;&gt;Salvage to Arweave&lt;/button&gt;
-            &lt;/form&gt;
-            &lt;div id=&quot;salvage-result&quot;&gt;&lt;/div&gt;
-        &lt;/section&gt;
-        &lt;section&gt;
-            &lt;h2&gt;Revive Agent&lt;/h2&gt;
-            &lt;form id=&quot;revive-form&quot;&gt;
-                &lt;input type=&quot;text&quot; id=&quot;txId&quot; placeholder=&quot;Enter Arweave Tx ID&quot;&gt;
-                &lt;button type=&quot;submit&quot;&gt;Revive from Tx&lt;/button&gt;
-            &lt;/form&gt;
-            &lt;div id=&quot;revive-result&quot;&gt;&lt;/div&gt;
-        &lt;/section&gt;
-        &lt;section&gt;
-            &lt;h2&gt;Pay&lt;/h2&gt;
-            &lt;form id=&quot;pay-form&quot;&gt;
-                &lt;input type=&quot;number&quot; id=&quot;amount&quot; placeholder=&quot;Amount in AR&quot; step=&quot;0.01&quot; min=&quot;0&quot;&gt;
-                &lt;button type=&quot;submit&quot;&gt;Process Payment&lt;/button&gt;
-            &lt;/form&gt;
-            &lt;div id=&quot;pay-result&quot;&gt;&lt;/div&gt;
-        &lt;/section&gt;
-    &lt;/main&gt;
-    &lt;script&gt;
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Revenant Bridge</h1>
+    </header>
+    <aside class="aside">
+        <h2>Test Flow</h2>
+        <button onclick="testFlow()">Run Test</button>
+        <div id="test-result"></div>
+    </aside>
+    <main class="main">
+        <section>
+            <h2>Salvage Agent</h2>
+            <form id="salvage-form">
+                <textarea id="state" placeholder="Enter agent state JSON..." rows="6" style="width: 100%; resize: vertical;"></textarea>
+                <button type="submit">Salvage to Arweave</button>
+            </form>
+            <div id="salvage-result"></div>
+        </section>
+        <section>
+            <h2>Revive Agent</h2>
+            <form id="revive-form">
+                <input type="text" id="txId" placeholder="Enter Arweave Tx ID">
+                <button type="submit">Revive from Tx</button>
+            </form>
+            <div id="revive-result"></div>
+        </section>
+        <section>
+            <h2>Pay</h2>
+            <form id="pay-form">
+                <input type="number" id="amount" placeholder="Amount in AR" step="0.01" min="0">
+                <button type="submit">Process Payment</button>
+            </form>
+            <div id="pay-result"></div>
+        </section>
+    </main>
+    <script>
         async function testFlow() {
             const resultDiv = document.getElementById('test-result');
             try {
@@ -148,13 +148,13 @@ const html = `&lt;!DOCTYPE html&gt;
                 const res = await fetch('/test-flow');
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const text = await res.text();
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #0f0;&quot;&gt;' + text + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #0f0;">' + text + '</p>';
             } catch (e) {
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #f00;&quot;&gt;Error: ' + e.message + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #f00;">Error: ' + e.message + '</p>';
             }
         }
 
-        document.getElementById('salvage-form').addEventListener('submit', async (e) =&gt; {
+        document.getElementById('salvage-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const state = document.getElementById('state').value;
             if (!state.trim()) return alert('Enter state');
@@ -168,13 +168,13 @@ const html = `&lt;!DOCTYPE html&gt;
                 });
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const data = await res.json();
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #0f0;&quot;&gt;Tx ID: ' + data.txId + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #0f0;">Tx ID: ' + data.txId + '</p>';
             } catch (e) {
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #f00;&quot;&gt;Error: ' + e.message + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #f00;">Error: ' + e.message + '</p>';
             }
         });
 
-        document.getElementById('revive-form').addEventListener('submit', async (e) =&gt; {
+        document.getElementById('revive-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const txId = document.getElementById('txId').value.trim();
             if (!txId) return alert('Enter Tx ID');
@@ -188,16 +188,16 @@ const html = `&lt;!DOCTYPE html&gt;
                 });
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const data = await res.json();
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #0f0;&quot;&gt;' + data.result + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #0f0;">' + data.result + '</p>';
             } catch (e) {
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #f00;&quot;&gt;Error: ' + e.message + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #f00;">Error: ' + e.message + '</p>';
             }
         });
 
-        document.getElementById('pay-form').addEventListener('submit', async (e) =&gt; {
+        document.getElementById('pay-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const amount = parseFloat(document.getElementById('amount').value);
-            if (isNaN(amount) || amount &lt;= 0) return alert('Enter valid amount');
+            if (isNaN(amount) || amount <= 0) return alert('Enter valid amount');
             const resultDiv = document.getElementById('pay-result');
             try {
                 resultDiv.innerHTML = 'Processing...';
@@ -208,41 +208,41 @@ const html = `&lt;!DOCTYPE html&gt;
                 });
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 const data = await res.json();
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #0f0;&quot;&gt;Signature: ' + data.sig + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #0f0;">Signature: ' + data.sig + '</p>';
             } catch (e) {
-                resultDiv.innerHTML = '&lt;p style=&quot;color: #f00;&quot;&gt;Error: ' + e.message + '&lt;/p&gt;';
+                resultDiv.innerHTML = '<p style="color: #f00;">Error: ' + e.message + '</p>';
             }
         });
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;`;
+    </script>
+</body>
+</html>`;
 
-app.get('/', (req, res) =&gt; {
+app.get('/', (req, res) => {
   res.send(html);
 });
 
-app.get('/health', (req, res) =&gt; res.status(200).send('OK'));
+app.get('/health', (req, res) => res.status(200).send('OK'));
 
-app.get('/test-flow', (req, res) =&gt; res.status(200).send('Full flow works!'));
+app.get('/test-flow', (req, res) => res.status(200).send('Full flow works!'));
 
-app.post('/salvage', (req, res) =&gt; {
+app.post('/salvage', (req, res) => {
   // Real Arweave salvage stub (add env logic)
   console.log('Salvage request:', req.body.state.substring(0, 100) + '...');
   res.json({txId: 'demo-tx-' + Date.now()});
 });
 
-app.post('/revive', (req, res) =&gt; {
+app.post('/revive', (req, res) => {
   console.log('Revive request for txId:', req.body.txId);
   res.json({result: 'Revived agent from Tx ID: ' + req.body.txId});
 });
 
-app.post('/pay', (req, res) =&gt; {
+app.post('/pay', (req, res) => {
   // If needed for server-side pay, but using direct now
   res.json({sig: 'demo-sig-' + Date.now()});
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, '0.0.0.0', () =&gt; {
+app.listen(port, '0.0.0.0', () => {
   console.log('Server running on port ' + port);
   console.log('Inline UI served');
 });
